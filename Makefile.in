@@ -1,0 +1,35 @@
+CC = gcc
+CFLAGS = -W -Wall -O3
+DFLAGS = -W -Wall -O0 -g
+
+LIB_DIR  = ../lib
+DLIB_DIR = ../debug
+
+TARGET  = complete
+DTARGET = debugcomp
+
+.SUFFIXES: .c .o
+.SUFFIXES: .c .debug
+
+all: exe debug
+
+exe: $(TARGET)
+
+$(TARGET): $(OBJS) 
+	cp *.o $(LIB_DIR)
+	touch $(TARGET)
+
+%.o : %.c
+	$(CC) $(CFLAGS) -c $*.c
+
+debug: $(DTARGET)
+
+$(DTARGET): $(DOBJS)
+	cp *.debug $(DLIB_DIR)
+	touch $(DTARGET)
+
+%.debug : %.c
+	$(CC) $(DFLAGS) -c $*.c -o $*.debug
+
+clean:
+	rm -f $(TARGET) ../$(TARGET) *.o $(DTARGET) ../$(DTARGET) *.debug *~
