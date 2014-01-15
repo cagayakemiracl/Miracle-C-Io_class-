@@ -11,10 +11,16 @@ FILE *IoOpen(string filename, string option);
 FILE *IoWriter(string filename);
 // filenameファイルを読み込み専用ファイルとして開く
 FILE *IoReader(string filename);
+// filenameファイルを書き込み専用バイナリファイルとして開く
+FILE *IoBinaryWriter(string filename);
+// filenameファイルを読み込み専用バイナリファイルとして開く
+FILE *IoBinaryReader(string filename);
 // commandを実行しその出力を取得
 FILE *IoPopen(string command);
 // fpを一行読み込みstrに格納
 char *IoReadline(FILE *fp, string str);
+// バイナリファイルfpから一文字読み込み
+char IoReadByte(FILE *fp);
 // fpの全ての行に対しfuncを適応
 void IoEach(FILE *fp, void (*func)(string line));
 // fpの全ての行に対し行番号を渡してfuncを適用
@@ -24,6 +30,8 @@ void IoEachWithIndex(FILE *fp, void (*func)(string line, int index));
 void UsingIoOpen(string filename, string option, void (*func)(FILE *fp));
 void UsingIoWriter(string filename, void (*func)(FILE *fp));
 void UsingIoReader(string filename, void (*func)(FILE *fp));
+void UsingIoBinaryWriter(string filename, void (*func)(FILE *fp));
+void UsingIoBinaryReader(string filename, void (*func)(FILE *fp));
 void UsingIoPopen(string command, void (*func)(FILE *fp));
 void UsingIoEach(string filename, void (*func)(string line));
 void UsingIoEachWithIndex(string filename,
